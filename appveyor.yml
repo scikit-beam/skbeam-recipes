@@ -15,17 +15,11 @@ environment:
     # Note: Because we have to separate the py2 and py3 components due to compiler version, we have a race condition for non-python packages.
     # Not sure how to resolve this, but maybe we should be tracking the VS version in the build string anyway?
     - TARGET_ARCH: "x86"
-      CONDA_PY: "27"
-      PY_CONDITION: "python >=2.7,<3"
-    - TARGET_ARCH: "x86"
       CONDA_PY: "34"
       PY_CONDITION: "python >=3.4,<3.5"
     - TARGET_ARCH: "x86"
       CONDA_PY: "35"
       PY_CONDITION: "python >=3.5"
-    - TARGET_ARCH: "x64"
-      CONDA_PY: "27"
-      PY_CONDITION: "python >=2.7,<3"
     - TARGET_ARCH: "x64"
       CONDA_PY: "34"
       PY_CONDITION: "python >=3.4,<3.5"
@@ -60,7 +54,7 @@ install:
 
     - cmd: conda config --set show_channel_urls yes
     - cmd: conda config --add channels conda-forge
-    - cmd: conda config --add channels lightsource2
+    - cmd: conda config --add channels scikit-beam
     - cmd: conda install --yes --quiet obvious-ci conda-build
     - cmd: obvci_install_conda_build_tools.py
     - cmd: conda info
@@ -69,7 +63,7 @@ install:
 build: off
 
 test_script:
-    - '%CMD_IN_ENV% obvci_conda_build_dir recipes lightsource2 --channel main  --build-condition "numpy >=1.8" "%PY_CONDITION%"'
+    - '%CMD_IN_ENV% obvci_conda_build_dir recipes scikit-beam --channel main  --build-condition "numpy >=1.8" "%PY_CONDITION%"'
     # copy any newly created conda packages into the conda_packages dir
     - cmd: mkdir conda_packages
     # Uncomment the following two lines to make any conda packages created
