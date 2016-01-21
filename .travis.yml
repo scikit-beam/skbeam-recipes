@@ -28,11 +28,11 @@ install:
   - wget https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py
   - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
   - conda config --set show_channel_urls True
-  - conda config --add channels lightsource2
+  - conda config --add channels scikit-beam
   - conda config --add channels conda-forge
   - conda install --yes --quiet obvious-ci
   - obvci_install_conda_build_tools.py
 
 script:
-  - obvci_conda_build_dir ./recipes lightsource2 --channel main --build-condition "numpy >=1.8" "python >=2.7,<3|>=3.4"
+  - obvci_conda_build_dir ./recipes scikit-beam --channel main --build-condition "numpy >=1.8" "python >=2.7,<3|>=3.4"
 

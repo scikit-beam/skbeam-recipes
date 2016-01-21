@@ -1,0 +1,35 @@
+package:
+  name: scikit-beam
+  version: 0.0.6
+
+source:
+  git_url: https://github.com/scikit-beam/scikit-beam
+  git_rev: v0.0.6
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy
+    - six
+    - cython
+  run:
+    - python
+    - numpy
+    - scipy
+    - six
+    - xraylib [unix or osx]
+    - scikit-image
+    - lmfit ==0.8.3
+    - netcdf4  # optional, required for skbeam.io
+
+test:
+  imports:
+    - skbeam
+
+about:
+  home: http://scikit-beam.github.io/scikit-beam/
+  license: 3-Clause BSD
