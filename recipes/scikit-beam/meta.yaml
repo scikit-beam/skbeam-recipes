@@ -21,10 +21,9 @@ requirements:
     - numpy
     - scipy
     - six
-    - xraylib [unix or osx]
+    - xraylib [unix]
     - scikit-image
     - lmfit ==0.8.3
-    - netcdf4  # optional, required for skbeam.io
 
 test:
   imports:
