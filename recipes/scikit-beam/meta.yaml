@@ -21,7 +21,7 @@ requirements:
     - numpy
     - scipy
     - six
-    - xraylib [unix]
+    - xraylib [not win]
     - scikit-image
     - lmfit ==0.8.3
 
