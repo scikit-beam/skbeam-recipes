@@ -1,6 +1,6 @@
 package:
   name: scikit-beam
-  version: peanut-butter-jelly-time
+  version: peanut_butter_jelly_time
 
 source:
   git_url: https://github.com/ericdill/scikit-beam
