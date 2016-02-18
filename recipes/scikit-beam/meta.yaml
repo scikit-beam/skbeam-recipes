@@ -49,7 +49,6 @@ test:
     - skbeam.core.image
     - skbeam.core.cdi
     - skbeam.core.accumulators
-    - skbeam.core.accumulators.timings
     - skbeam.core.accumulators.histogram
     - skbeam.core.accumulators.histogram
     - skbeam.core.accumulators.histogram
