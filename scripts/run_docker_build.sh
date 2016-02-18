@@ -37,8 +37,8 @@ echo "$config" > ~/.condarc
 conda clean --lock
 
 conda update --yes conda
-conda install --yes conda-build=1.18.1
-conda install --yes anaconda-client obvious-ci
+pip install https://github.com/conda/conda-build/zipball/master#egg=conda-build
+conda install --yes anaconda-client conda-build-all
 
 conda info
 unset LANG
@@ -51,7 +51,7 @@ unset LANG
 # state the build dependencies at OS level, too.
 yum install -y libXext libXrender libSM tk libX11-devel
 
-obvci_conda_build_dir /conda-recipes ericdill --build-condition "numpy >=1.8" "python >=2.7,<3|>=3.4"
+conda-build-all /conda-recipes --upload-channels scikit-beam --inspect-channels scikit-beam --build-condition "numpy >=1.8" "python >=2.7,<3|>=3.4"
 
 EOF
 
