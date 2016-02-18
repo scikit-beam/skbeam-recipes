@@ -10,16 +10,23 @@ environment:
 
   BINSTAR_TOKEN:
     # Generated with "binstar auth --create --name ScitoolsRecipesAppVeyor -o conda-forge" and encrypted on ci.appveyor.com/tools/encrypt.
-    secure: /JXz7OMdViXysVdoyIlzLnGByRuCkyYssJCOkRNJZ6FPWrxC/tuh07TCrdmjWydP
+    # secure: /JXz7OMdViXysVdoyIlzLnGByRuCkyYssJCOkRNJZ6FPWrxC/tuh07TCrdmjWydP
+    # Added directly to skbeam-recipes on ci.appveyor.com/project/<username>/skbeam-recipes/settings/environment
   matrix:
     # Note: Because we have to separate the py2 and py3 components due to compiler version, we have a race condition for non-python packages.
     # Not sure how to resolve this, but maybe we should be tracking the VS version in the build string anyway?
+    - TARGET_ARCH: "x86"
+      CONDA_PY: "27"
+      PY_CONDITION: "python <3"
     - TARGET_ARCH: "x86"
       CONDA_PY: "34"
       PY_CONDITION: "python >=3.4,<3.5"
     - TARGET_ARCH: "x86"
       CONDA_PY: "35"
       PY_CONDITION: "python >=3.5"
+    - TARGET_ARCH: "x64"
+      CONDA_PY: "27"
+      PY_CONDITION: "python <3"
     - TARGET_ARCH: "x64"
       CONDA_PY: "34"
       PY_CONDITION: "python >=3.4,<3.5"
@@ -53,17 +60,18 @@ install:
     - cmd: set PYTHONUNBUFFERED=1
 
     - cmd: conda config --set show_channel_urls yes
+    - cmd: conda config --set always_yes yes
     - cmd: conda config --add channels conda-forge
     - cmd: conda config --add channels scikit-beam
-    - cmd: conda install --yes --quiet obvious-ci conda-build
-    - cmd: obvci_install_conda_build_tools.py
+    - cmd: conda install conda-build-all
+    - cmd: pip install https://github.com/conda/conda-build/zipball/master#egg=conda-build
     - cmd: conda info
 
 # Skip .NET project specific build phase.
 build: off
 
 test_script:
-    - '%CMD_IN_ENV% obvci_conda_build_dir recipes ericdill --channel main  --build-condition "numpy >=1.8" "%PY_CONDITION%"'
+    - '%CMD_IN_ENV% conda-build-all /conda-recipes --upload-channels scikit-beam --inspect-channels scikit-beam --build-condition "numpy >=1.8" "%PY_CONDITION%"'
     # copy any newly created conda packages into the conda_packages dir
     - cmd: mkdir conda_packages
     # Uncomment the following two lines to make any conda packages created
