@@ -6,7 +6,7 @@ sudo: false
 env:
   global:
     # Add the BINSTAR_TOKEN environment variable. This has been generated with "" then "travis encrypt BINSTAR_TOKEN=<token_id>"
-    secure: "ReRrfyh0GbG3qvAPhyvBFYXcPrYeoGQQRqO8Mh6NW1UIQ8PlcHxMMSyB6yKUm0/4k3dSgi+bgAGRGRxtaDFXdLhG3LlTRx+L7DklCj9xqsEWT2YTXj2T8m0ElCcWKRzO1KomrNNSu6A4nJ2+0zCWRa+/8S1FA/AXcGsy0fruU0sJi6tzjsjLU1PJ73MhWywA6N4PbPaCVorCbdnW2KvmPxG1WrrBPuiUWbAsc7h/FrC1hS1z2u5z1fc73ouvYpc5MC76Eq7JvdLd5lX2NDT29n7JpixsL7VZRwTpzYT8VCG1e8qb9i+3cG+diQ+ji6g7LNUs4LCZfoSK5cjpbtfVqpumAFrrRLVv3fFe4iaGIXcXDzyi2ts+ex6idz3PPxWzeQRaWTC8FbyvgbPv8bjY4fYFsEX6NU/tAG18nfYXYnLr+x8Mv4QSkhDV2ZwXSMMZ3OkCqlgYV2QNdmF1OXzdWZ6F/J+E8pbqHA3y1Vr0wM/Lw635d1t1kCMrRyrekI9+6wnUBCtra4iy5DRGiuYQHIJ2sgqtpee+4dWTi3v8LRZvGhFQA31WdHJes4wP4Aycp9fY3hHH9fCfyEvuRvse35TDFQKRyeIvus3uyJ75EwvRzqj5Ibf2DWQNBf3EQL6PMUuWa0lscqH24HLKp3fFLJ6ZqTASc69wjcoON3FO7Ls="
+    secure: "HuLVvDcg8VMwdN0coW1AjEorPIXeCqvd5pK+6hpJbp5zNcfzDhOz5eJ/0ufCIYXBx2pFOp6cOYAz5/vJy5Du2I1EwaE4yFyuViIpIs672Z+cNL1rHYNphv8lFjBUYgH07/5LoMHBPNQbuMrV+kCA8PuQfog0TX9ax47/cxDkfzkqaWIKMEqSEGs89lCL9zVoZC2Ue8/hxRPyHUuoXPpc36sfl0cfl9HQ+YMNllXrf049ifI6c2fnX39GA+sii3r4N2tqgXXeyUhI/U39NjMYoiphJ2lwevFvnQ6jLBHJBC08aSjLh+clCh+C51HiqEOO2P6hpL1nzNitdfNNiyPm12LdzWDVd3gmns7Spu1LoiFGUK7LWhL2umAMepSUB1UCejMlPoVPHg5y/nDONDrsoqKpsbBGtoQDozXJcAQfT/6DFPYpIOlkByXPtsvGTdHWvcA8cqkU61mhR+koibIvhQsfkbCZelF3iBgcdY+SaAC0a172GHaLKlcTD4qHS4lv2W1U7f0IHMu7uS/zPDtgc+zkhoyezME2CmaliLsKm8fi+0yCz+t9oHggFDGUp1qGp56w153DmfeW6rtyXRLcwv4eQO/nF0sGNAINx9hd8S4BGVPWKpBJO8clBy7ptNOilx58XKLKsWSr03MyBAH2Rq9KQYrEiiXIEaGUthBlze8="
 
 addons:
   apt:
@@ -28,11 +28,13 @@ install:
   - wget https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py
   - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
   - conda config --set show_channel_urls True
+  - conda config --set always_yes True
   - conda config --add channels scikit-beam
   - conda config --add channels conda-forge
-  - conda install --yes --quiet obvious-ci
+  - conda install conda-build-all
+  - pip install https://github.com/conda/conda-build/zipball/master#egg=conda-build
   - obvci_install_conda_build_tools.py
 
 script:
-  - obvci_conda_build_dir ./recipes ericdill --channel main --build-condition "numpy >=1.8" "python >=2.7,<3|>=3.4"
+  - conda-build-all /conda-recipes --upload-channels scikit-beam --inspect-channels scikit-beam --build-condition "numpy >=1.8" "python >=2.7,<3|>=3.4"
 
