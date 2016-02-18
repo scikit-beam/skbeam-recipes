@@ -6,9 +6,9 @@ This repo is a holding area for recipes destined for a conda-forge feedstock rep
 
 Build status
 ------------
+Linux build: [![Circle CI](https://circleci.com/gh/scikit-beam/skbeam-recipes.svg?style=svg)](https://circleci.com/gh/scikit-beam/skbeam-recipes)
 
-[![Circle CI](https://circleci.com/gh/scikit-beam/staged-recipes/tree/master.svg?style=svg)](https://circleci.com/gh/scikit-beam/staged-recipes/tree/master)
+Mac build: [![Build Status](https://travis-ci.org/scikit-beam/skbeam-recipes.svg?branch=master)](https://travis-ci.org/scikit-beam/skbeam-recipes)
 
-[![Build Status](https://travis-ci.org/scikit-beam/staged-recipes.svg?branch=master)](https://travis-ci.org/scikit-beam/staged-recipes)
+Windows build: [![Build status](https://ci.appveyor.com/api/projects/status/61ose1ry8q3qm3a1?svg=true)](https://ci.appveyor.com/project/ericdill/skbeam-recipes)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/47716ba4hkginhp2/branch/master?svg=true)](https://ci.appveyor.com/project/pelson/staged-recipes/branch/master)
