@@ -72,7 +72,7 @@ test:
     - skbeam.io.gsas_file_reader
     - skbeam.io.binary
     - skbeam.ext
-    - skbeam.ext.ctrans
+    - skbeam.ext.ctrans [not win]
 
 about:
   home: http://scikit-beam.github.io/scikit-beam/
