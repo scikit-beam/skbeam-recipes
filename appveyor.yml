@@ -89,5 +89,9 @@ deploy_script:
      - "echo [pypi] > %USERPROFILE%\\.pypirc"
      - "echo username: ericdill >> %USERPROFILE%\\.pypirc"
      - "echo password: %password% >> %USERPROFILE%\\.pypirc"
+     - git clone https://github.com/scikit-beam/scikit-beam
+     - cd scikit-beam
+     - git checkout v0.0.8
+     - conda install cython
      - python setup.py bdist_wheel
      - twine upload dist/*
