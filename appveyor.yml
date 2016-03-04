@@ -1,5 +1,7 @@
 environment:
-
+  # deploy to pypi
+  password:
+    secure: ByzgRhKQL5uE5jTkiuNCrm1BygI1Fir9pyUwyMdh35fGFbhm9vuth070llj6qPYs
   # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
   # /E:ON and /V:ON options are not enabled in the batch script interpreter
   # See: http://stackoverflow.com/a/13751649/163740
@@ -89,8 +91,3 @@ deploy_script:
      - "echo password: %password% >> %USERPROFILE%\\.pypirc"
      - python setup.py bdist_wheel
      - twine upload dist/*
-
-# deploy to pypi
-environment:
-  password:
-    secure: ByzgRhKQL5uE5jTkiuNCrm1BygI1Fir9pyUwyMdh35fGFbhm9vuth070llj6qPYs
