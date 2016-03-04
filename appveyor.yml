@@ -67,15 +67,30 @@ install:
     - cmd: conda install conda-build-all
     - cmd: pip install https://github.com/conda/conda-build/zipball/master#egg=conda-build
     - cmd: conda info
+    - cmd: pip install twine
 
 # Skip .NET project specific build phase.
 build: off
 
 test_script:
     - '%CMD_IN_ENV% conda-build-all recipes --upload-channels scikit-beam --inspect-channels scikit-beam --matrix-conditions "numpy >=1.8" "%PY_CONDITION%"'
+    - cmd: python setup.py bdist_wheel
+    - cmd: twine upload
     # copy any newly created conda packages into the conda_packages dir
     - cmd: mkdir conda_packages
     # Uncomment the following two lines to make any conda packages created
     # available as build artifacts in AppVeyor
     #- cmd: 'copy /Y C:\Miniconda\conda-bld\win-32\*.bz2 conda_packages || cmd /c "exit /b 0"'
     #- cmd: 'copy /Y C:\Miniconda-x64\conda-bld\win-64\*.bz2 conda_packages || cmd /c "exit /b 0"'
+
+deploy_script:
+     - "echo [pypi] > %USERPROFILE%\\.pypirc"
+     - "echo username: ericdill >> %USERPROFILE%\\.pypirc"
+     - "echo password: %password% >> %USERPROFILE%\\.pypirc"
+     - python setup.py bdist_wheel
+     - twine upload dist/*
+
+# deploy to pypi
+environment:
+  password:
+    secure: ByzgRhKQL5uE5jTkiuNCrm1BygI1Fir9pyUwyMdh35fGFbhm9vuth070llj6qPYs
